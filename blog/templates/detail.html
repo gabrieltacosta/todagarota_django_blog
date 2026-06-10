@@ -53,7 +53,7 @@
     {% endif %}
 </header>
 
-    <div class="container mx-auto px-6 max-w-2xl prose prose-neutral lg:prose-lg prose-headings:font-display prose-headings:text-brand-dark text-brand-dark/90 selection:bg-brand-blush">
+    <div class="container mx-auto px-6 max-w-4xl prose prose-neutral lg:prose-lg prose-headings:font-display prose-headings:text-brand-dark text-brand-dark/90 selection:bg-brand-blush">
         {{ post.content|safe }}
     </div>
 </article>
@@ -86,6 +86,8 @@
         </div>
     </div>
     {% endif %}
+
+    <hr class="border-brand-blush/20 my-12">
 
     {% if category_posts %}
     <div>
