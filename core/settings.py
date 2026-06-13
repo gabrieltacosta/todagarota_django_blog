@@ -15,7 +15,30 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool, default=False)
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["192.168.10.254", "todagarota.hawkdev.cloud", "www.todagarota.hawkdev.cloud"]
+
+
+CSRF_TRUSTED_ORIGINS = ["http://192.168.10.254", "https://todagarota.hawkdev.cloud", "https://www.todagarota.hawkdev.cloud"]
+
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# Força o redirecionamento permanente (301) de HTTP para HTTPS
+SECURE_SSL_REDIRECT = True
+
+# Protege o cookie de sessão contra envio em conexões não-seguradas
+SESSION_COOKIE_SECURE = True
+
+# Protege o cookie do CSRF contra envio em conexões não-seguradas
+CSRF_COOKIE_SECURE = True
+
+# Habilita o HSTS com duração de 1 ano (em segundos)
+SECURE_HSTS_SECONDS = 31536000
+
+# Inclui subdomínios na regra do HSTS (opcional, remova se usar subdomínios HTTP)
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# Garante que o HSTS não seja removido acidentalmente
+SECURE_HSTS_PRELOAD = True
 
 
 # Application definition
@@ -118,7 +141,7 @@ default_auto_field = 'django.db.models.BigAutoField'
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, "static"),]
-STATIC_ROOT = os.path.join(BASE_DIR, "staticafiles")
+STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
 MEDIA_URL = "/media/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
