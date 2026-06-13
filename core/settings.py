@@ -15,15 +15,16 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool, default=False)
 
-ALLOWED_HOSTS = ["192.168.10.254", "todagarota.hawkdev.cloud", "www.todagarota.hawkdev.cloud"]
+ALLOWED_HOSTS = ["192.168.10.254", "localhost", "127.0.0.1", "todagarota.hawkdev.cloud", "www.todagarota.hawkdev.cloud"]
 
 
 CSRF_TRUSTED_ORIGINS = ["http://192.168.10.254", "https://todagarota.hawkdev.cloud", "https://www.todagarota.hawkdev.cloud"]
 
+
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Força o redirecionamento permanente (301) de HTTP para HTTPS
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 
 # Protege o cookie de sessão contra envio em conexões não-seguradas
 SESSION_COOKIE_SECURE = True
@@ -32,13 +33,13 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 # Habilita o HSTS com duração de 1 ano (em segundos)
-SECURE_HSTS_SECONDS = 31536000
+SECURE_HSTS_SECONDS = 0
 
 # Inclui subdomínios na regra do HSTS (opcional, remova se usar subdomínios HTTP)
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_INCLUDE_SUBDOMAINS = False
 
 # Garante que o HSTS não seja removido acidentalmente
-SECURE_HSTS_PRELOAD = True
+SECURE_HSTS_PRELOAD = False
 
 
 # Application definition
