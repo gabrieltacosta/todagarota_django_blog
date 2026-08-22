@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.views.generic import TemplateView
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
@@ -15,7 +16,8 @@ from django.utils.text import slugify
 from PIL import Image
 
 from .models import Post, Category, Tag
-from django.views.generic import ListView, DetailView
+from django.views.generic import DetailView
+
 
 
 
@@ -181,6 +183,13 @@ def contact_view(request):
 
         # TODO: Aqui você pode usar o send_mail do Django para enviar um e-mail real para você.
         # Por enquanto, vamos apenas simular o sucesso.
+        send_mail(
+            subject=f"Contato do Blog: {subject}",
+            message=f"Nome: {name}\nEmail: {email}\n\nMensagem:\n{message}",
+            from_email=None,
+            recipient_list=['gabriel.tuka@gmail.com'],
+            fail_silently=False,
+        )
         
         messages.success(request, f"Obrigada, {name}! Sua mensagem foi enviada com sucesso. Responderemos em breve.")
         return redirect("blog:contact")

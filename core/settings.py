@@ -18,7 +18,7 @@ DEBUG = config("DEBUG", cast=bool, default=False)
 ALLOWED_HOSTS = ["192.168.10.254", "localhost", "127.0.0.1", "todagarota.hawkdev.cloud", "www.todagarota.hawkdev.cloud"]
 
 
-CSRF_TRUSTED_ORIGINS = ["http://192.168.10.254", "https://todagarota.hawkdev.cloud", "https://www.todagarota.hawkdev.cloud"]
+CSRF_TRUSTED_ORIGINS = ["http://192.168.10.254", "http://localhost", "https://todagarota.hawkdev.cloud", "https://www.todagarota.hawkdev.cloud"]
 
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -182,3 +182,12 @@ CKEDITOR_5_CONFIGS = {
 }
 
 CKEDITOR5_CONFIGS = CKEDITOR_5_CONFIGS
+
+# Configuração do envio de e-mails
+EMAIL_BACKEND = config("EMAIL_BACKEND")
+EMAIL_HOST = config("EMAIL_HOST")
+EMAIL_PORT = config("EMAIL_PORT", cast=int)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
