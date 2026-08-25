@@ -1,6 +1,7 @@
 from django.contrib import admin
-from django.urls import path, include
+from django.urls import path, include, re_path
 from django.conf import settings
+
 from django.conf.urls.static import static
 from django.contrib.sitemaps.views import sitemap
 from blog.sitemaps import PostSitemap, StaticSitemap, CategorySitemap,TagSitemap
@@ -15,7 +16,7 @@ sitemaps = {
     "tags": TagSitemap
 }
 
-urlpatterns = [
+urlpatterns = [    
     path('admin/', admin.site.urls),
     path('ckeditor5/image_upload/', ckeditor5_custom_upload, name='ckeditor5_image_upload'),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
@@ -24,7 +25,8 @@ urlpatterns = [
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("sitemap.xml/", sitemap, {"sitemaps": sitemaps}),
     path("robots.txt", lambda r: HttpResponse("User-agent: *\nDisallow: /admin/\nDisallow: /ckeditor5/\n\nSitemap: https://todagarota.com.br/sitemap.xml", 
-            content_type="text/plain"))
+            content_type="text/plain")),
+    re_path('', include('pwa.urls')),
 ]
 
 

@@ -55,7 +55,8 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
     'whitenoise',
     'django_ckeditor_5',
-    'blog'
+    'blog',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -198,3 +199,33 @@ EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool)
 EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
+
+
+PWA_APP_NAME = 'Toda Garota'
+PWA_APP_DESCRIPTION = "O seu espaço seguro de dicas, inspiração e tudo que envolve o universo feminino."
+PWA_APP_THEME_COLOR = '#D38B8B'
+PWA_APP_BACKGROUND_COLOR = '#FFF5F5'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': '/static/img/logo.png',
+        'sizes': '160x160'
+    }
+]
+
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': '/static/img/logo.png',
+        'sizes': '160x160'
+    }
+]
+
+PWA_APP_LANG = 'pt-BR'
+PWA_APP_DEBUG_MODE = True
+
+
+
