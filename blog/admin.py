@@ -30,6 +30,7 @@ admin.site.register(Author, CustomUserAdmin)
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ("image_thumbnail",'title', 'category', 'status', 'created_at')
+    list_editable = ("status",)
     list_display_links = ("title",)
     list_filter = ('status', 'author', 'category', 'tags')
     search_fields = ('title', 'content')
