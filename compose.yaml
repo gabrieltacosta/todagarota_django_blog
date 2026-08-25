@@ -4,7 +4,7 @@ services:
     container_name: redis_cache
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6380:6379"
     command: redis-server --appendonly yes
 
     volumes:
@@ -12,13 +12,11 @@ services:
     healthcheck:
       test:
         - CMD-SHELL
-        - 'redis-cli -h localhost -p 6379 ping'
+        - "redis-cli -h localhost -p 6379 ping"
       interval: 20s
       timeout: 20s
       retries: 10
 
-
 volumes:
   redis_data:
     driver: local
-
