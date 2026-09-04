@@ -26,6 +26,11 @@ class Author(AbstractUser):
             compress_and_convert_to_webp(self.image, max_width=400, quality=85, is_avatar=True) # Avatares podem ser menores (400px)
         super().save(*args, **kwargs)
 
+    @property
+    def avatar_url(self):
+        if self.image:
+            return self.image.url
+        return '/static/images/default_avatar.webp'
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Nome")
@@ -132,3 +137,17 @@ class Post(models.Model):
 
         # Salva o post de fato com o novo conteúdo
         super().save(*args, **kwargs)
+
+    @property
+    def tempo_leitura(self):
+    # Remove tags HTML se o seu conteúdo usar rich text / markdown
+        texto_limpo = re.sub(r'<[^>]+>', '', self.content)
+        palavras = len(texto_limpo.split())
+
+    # Média padrão de leitura: 200 palavras por minuto
+        velocidade = 200
+        minutos = palavras / velocidade
+
+    # Retorna pelo menos 1 minuto se houver texto
+        tempo = round(minutos)
+        return max(tempo, 1)

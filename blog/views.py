@@ -112,6 +112,10 @@ class PostDetailView(DetailView):
     template_name = 'detail.html'
     context_object_name = 'post'
 
+    def get_queryset(self):
+        # Garante que a busca inicial só traga posts publicados
+        return super().get_queryset().filter(status='published')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         post_atual = self.object
@@ -229,3 +233,6 @@ def tag_detail(request, slug):
         "tag": tag,
         "page_obj": page_obj
     })
+
+def not_found(request, exception):
+    return render(request, 'not_found.html')

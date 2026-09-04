@@ -15,10 +15,10 @@ SECRET_KEY = config("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool, default=False)
 
-ALLOWED_HOSTS = ["192.168.10.254", "localhost", "127.0.0.1", "todagarota.hawkdev.cloud", "www.todagarota.hawkdev.cloud"]
+ALLOWED_HOSTS = ["todagarota.hawkdev.cloud", "www.todagarota.hawkdev.cloud"]
 
 
-CSRF_TRUSTED_ORIGINS = ["http://192.168.10.254", "http://localhost", "https://todagarota.hawkdev.cloud", "https://www.todagarota.hawkdev.cloud"]
+CSRF_TRUSTED_ORIGINS = ["https://todagarota.hawkdev.cloud", "https://www.todagarota.hawkdev.cloud"]
 
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
@@ -133,7 +133,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'pt-br'
+LANGUAGE_CODE = 'pt-BR'
 
 TIME_ZONE = 'America/Sao_Paulo'
 
@@ -200,8 +200,8 @@ EMAIL_HOST_USER = config("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
 DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
 
-
-PWA_APP_NAME = 'Toda Garota'
+PWA_APP_NAME = 'Toda Garota Blog'
+PWA_APP_SHORT_NAME = 'Toda Garota'
 PWA_APP_DESCRIPTION = "O seu espaço seguro de dicas, inspiração e tudo que envolve o universo feminino."
 PWA_APP_THEME_COLOR = '#D38B8B'
 PWA_APP_BACKGROUND_COLOR = '#FFF5F5'
@@ -210,22 +210,108 @@ PWA_APP_SCOPE = '/'
 PWA_APP_ORIENTATION = 'any'
 PWA_APP_START_URL = '/'
 PWA_APP_STATUS_BAR_COLOR = 'default'
+
 PWA_APP_ICONS = [
     {
-        'src': '/static/img/logo.png',
-        'sizes': '160x160'
-    }
+        "src": "/static/img/logo-48x48.png",
+        "sizes": "48x48",
+        "type": "image/png",
+    },
+    {
+        "src": "/static/img/logo-72x72.png",
+        "sizes": "72x72",
+        "type": "image/png",
+    },
+    {
+        "src": "/static/img/logo-96x96.png",
+        "sizes": "96x96",
+        "type": "image/png",
+    },
+    {
+        "src": "/static/img/logo-144x144.png",
+        "sizes": "144x144",
+        "type": "image/png",
+    },
+    {
+        "src": "/static/img/logo-192x192.png",
+        "sizes": "192x192",
+        "type": "image/png",
+    },
+    {
+        "src": "/static/img/logo-512x512.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "any",
+    },
+    {
+        "src": "/static/img/logo-512x512-maskable.png",
+        "sizes": "512x512",
+        "type": "image/png",
+        "purpose": "maskable",
+    },
 ]
 
 PWA_APP_ICONS_APPLE = [
     {
-        'src': '/static/img/logo.png',
-        'sizes': '160x160'
+        "src": "/static/img/logo-160x160.png",
+        "sizes": "160x160",
+        "type": "image/png"
     }
 ]
 
+PWA_APP_SCREENSHOTS = [
+    {
+        "src": "/static/img/desktop.png",
+        "sizes": "1920x911",
+        "type": "image/png",
+        "form_factor": "wide",
+        "label": "Desktop View",
+    },
+    {
+        "src": "/static/img/mobile.png",
+        "sizes": "378x869",
+        "type": "image/png",
+        "form_factor": "narrow",
+        "label": "Mobile View",
+    },
+]
+
+PWA_APP_SHORTCUTS = [
+    {
+        'name': 'Toda Garota Blog',
+        'short_name': 'Toda Garota',
+        'description': 'O seu espaço seguro de dicas, inspiração e tudo que envolve o universo feminino.',
+        'url': '/',
+        "icons": [
+            {
+            "src": "/static/img/logo-96x96.png",
+            "sizes": "96x96",
+            "type": "image/png"
+            }
+        ]
+    },
+]
+
 PWA_APP_LANG = 'pt-BR'
-PWA_APP_DEBUG_MODE = True
+PWA_APP_CATEGORIES = ['lifestyle', 'beauty', 'health']  # Categorias oficiais aceitas
+PWA_APP_DEBUG_MODE = False  # Desativa o modo de depuração para produção
 
-
-
+JAZZMIN_SETTINGS = {
+    "site_title": "Toda Garota Blog Admin",
+    "site_header": "Toda Garota Blog",
+    "site_brand": "Toda Garota Blog",
+    "site_logo": "/img/logo-96x96.png",
+    "login_logo": None,
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "blog.author": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "blog.Post": "fas fa-newspaper",
+        "blog.Category": "fas fa-layer-group",
+        "blog.Tag": "fas fa-tags",
+    },
+    "user_avatar": "avatar_url",  # Função para obter o avatar do usuário
+    "custom_css": "css/custom_admin.css",
+    "welcome_sign": "Bem-vindo(a) ao Toda Garota Blog",
+    "copyright": "© 2026 Toda Garota Blog. Todos os direitos reservados.",
+}
