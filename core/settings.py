@@ -313,5 +313,5 @@ JAZZMIN_SETTINGS = {
     "user_avatar": "avatar_url",  # Função para obter o avatar do usuário
     "custom_css": "css/custom_admin.css",
     "welcome_sign": "Bem-vindo(a) ao Toda Garota Blog",
-    "copyright": "© 2026 Toda Garota Blog. Todos os direitos reservados.",
+    "copyright": "Toda Garota Blog",
 }

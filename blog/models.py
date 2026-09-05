@@ -5,7 +5,7 @@ from django.contrib.auth.models import AbstractUser
 from django.utils.text import slugify
 from django.urls import reverse
 from django_ckeditor_5.fields import CKEditor5Field
-from .utils import get_image_upload_path, get_cover_upload_path, compress_and_convert_to_webp, generate_cuid
+from .utils import get_image_upload_path, get_cover_upload_path, compress_and_convert_to_webp, generate_cuid, get_image_default_path
 
 
 
@@ -13,7 +13,7 @@ from .utils import get_image_upload_path, get_cover_upload_path, compress_and_co
 
 class Author(AbstractUser):
     id = models.CharField(primary_key=True, default=generate_cuid, editable=False, max_length=50)
-    image = models.ImageField(upload_to=get_image_upload_path, blank=True, null=True, verbose_name="Foto")
+    image = models.ImageField(upload_to=get_image_upload_path, blank=True, null=True, verbose_name="Foto", default=get_image_default_path)
 
     def __str__(self):
         if self.get_full_name():
