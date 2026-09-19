@@ -10,21 +10,27 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/6.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY", default="django-insecure-!@#4$%&*()_+1234567890qwertyuiopasdfghjklzxcvbnm")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config("DEBUG", cast=bool, default=False)
 
-ALLOWED_HOSTS = ["todagarota.hawkdev.cloud", "www.todagarota.hawkdev.cloud"]
+ALLOWED_HOSTS = [
+    host.strip() for host in config("ALLOWED_HOSTS", default="").split(",")
+    if host.strip()  # Remove espaços em branco e ignore entradas vazias
+]
 
 
-CSRF_TRUSTED_ORIGINS = ["https://todagarota.hawkdev.cloud", "https://www.todagarota.hawkdev.cloud"]
+CSRF_TRUSTED_ORIGINS = [
+    origin.strip() for origin in config("CSRF_TRUSTED_ORIGINS", default="").split(",")
+    if origin.strip()  # Remove espaços em branco e ignore entradas vazias
+]
 
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 # Força o redirecionamento permanente (301) de HTTP para HTTPS
-SECURE_SSL_REDIRECT = False
+SECURE_SSL_REDIRECT = True
 
 # Protege o cookie de sessão contra envio em conexões não-seguradas
 SESSION_COOKIE_SECURE = True
@@ -33,13 +39,13 @@ SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 
 # Habilita o HSTS com duração de 1 ano (em segundos)
-SECURE_HSTS_SECONDS = 0
+SECURE_HSTS_SECONDS = 31536000
 
 # Inclui subdomínios na regra do HSTS (opcional, remova se usar subdomínios HTTP)
-SECURE_HSTS_INCLUDE_SUBDOMAINS = False
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 
 # Garante que o HSTS não seja removido acidentalmente
-SECURE_HSTS_PRELOAD = False
+SECURE_HSTS_PRELOAD = True
 
 
 # Application definition
@@ -98,8 +104,12 @@ AUTH_USER_MODEL = "blog.Author"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config("POSTGRES_DB", default="postgres"),
+        'USER': config("POSTGRES_USER", default="postgres"),
+        'PASSWORD': config("POSTGRES_PASSWORD", default="postgres"),
+        'HOST': config("POSTGRES_HOST", default="localhost"),
+        'PORT': config("POSTGRES_PORT", default="5432", cast=int),
     }
 }
 
@@ -107,7 +117,7 @@ DATABASES = {
 CACHES = {
     "default": {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
-        "LOCATION": "redis://127.0.0.1:6380",
+        "LOCATION": "redis://redis:6379/1",  # Use a porta padrão do Redis
     }
 }
 
@@ -192,13 +202,13 @@ CKEDITOR_5_CONFIGS = {
 CKEDITOR5_CONFIGS = CKEDITOR_5_CONFIGS
 
 # Configuração do envio de e-mails
-EMAIL_BACKEND = config("EMAIL_BACKEND")
-EMAIL_HOST = config("EMAIL_HOST")
-EMAIL_PORT = config("EMAIL_PORT", cast=int)
-EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool)
-EMAIL_HOST_USER = config("EMAIL_HOST_USER")
-EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD")
-DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL")
+EMAIL_BACKEND = config("EMAIL_BACKEND", default="django.core.mail.backends.smtp.EmailBackend")
+EMAIL_HOST = config("EMAIL_HOST", default="localhost")
+EMAIL_PORT = config("EMAIL_PORT", cast=int, default=587)
+EMAIL_USE_TLS = config("EMAIL_USE_TLS", cast=bool, default=True)
+EMAIL_HOST_USER = config("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = config("EMAIL_HOST_PASSWORD", default="")
+DEFAULT_FROM_EMAIL = config("DEFAULT_FROM_EMAIL", default="webmaster@localhost")
 
 PWA_APP_NAME = 'Toda Garota Blog'
 PWA_APP_SHORT_NAME = 'Toda Garota'
