@@ -21,31 +21,33 @@ ALLOWED_HOSTS = [
 ]
 
 
-CSRF_TRUSTED_ORIGINS = [
-    origin.strip() for origin in config("CSRF_TRUSTED_ORIGINS", default="").split(",")
-    if origin.strip()  # Remove espaços em branco e ignore entradas vazias
-]
 
+if not DEBUG:
 
-SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+    CSRF_TRUSTED_ORIGINS = [
+        origin.strip() for origin in config("CSRF_TRUSTED_ORIGINS", default="").split(",")
+        if origin.strip()  # Remove espaços em branco e ignore entradas vazias
+    ]
 
-# Força o redirecionamento permanente (301) de HTTP para HTTPS
-SECURE_SSL_REDIRECT = True
+    SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-# Protege o cookie de sessão contra envio em conexões não-seguradas
-SESSION_COOKIE_SECURE = True
+    # Força o redirecionamento permanente (301) de HTTP para HTTPS
+    SECURE_SSL_REDIRECT = True  # Defina como True em produção
 
-# Protege o cookie do CSRF contra envio em conexões não-seguradas
-CSRF_COOKIE_SECURE = True
+    # Protege o cookie de sessão contra envio em conexões não-seguradas
+    SESSION_COOKIE_SECURE = True 
 
-# Habilita o HSTS com duração de 1 ano (em segundos)
-SECURE_HSTS_SECONDS = 31536000
+    # Protege o cookie do CSRF contra envio em conexões não-seguradas
+    CSRF_COOKIE_SECURE = True 
 
-# Inclui subdomínios na regra do HSTS (opcional, remova se usar subdomínios HTTP)
-SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    # Habilita o HSTS com duração de 1 ano (em segundos)
+    SECURE_HSTS_SECONDS = 31536000  # 1 ano 
 
-# Garante que o HSTS não seja removido acidentalmente
-SECURE_HSTS_PRELOAD = True
+    # Inclui subdomínios na regra do HSTS (opcional, remova se usar subdomínios HTTP)
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+    # Garante que o HSTS não seja removido acidentalmente
+    SECURE_HSTS_PRELOAD = True  # Defina como True se você quiser enviar seu site para a lista de pré-carregamento HSTS
 
 
 # Application definition

@@ -15,6 +15,12 @@ services:
       sh -c "python manage.py migrate &&
              python manage.py collectstatic --noinput &&
              gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 3"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/')"]
+      interval: 20s
+      timeout: 20s
+      retries: 5
+      start_period: 10s
     depends_on:
       db:
         condition: service_healthy
@@ -35,7 +41,8 @@ services:
         - "pg_isready -U $POSTGRES_USER -d $POSTGRES_DB"
       interval: 20s
       timeout: 20s
-      retries: 10
+      retries: 5
+      start_period: 10s
 
   redis:
     image: redis:7.4-alpine
@@ -50,7 +57,8 @@ services:
         - "redis-cli -h localhost -p 6379 ping"
       interval: 20s
       timeout: 20s
-      retries: 10
+      retries: 5
+      start_period: 10s
 
 volumes:
   redis_data:
