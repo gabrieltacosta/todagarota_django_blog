@@ -20,6 +20,8 @@ from .models import Post, Category, Tag
 from django.views.generic import DetailView
 
 
+def healthcheck(request):
+    return HttpResponse("OK", status=200)
 
 
 @csrf_exempt

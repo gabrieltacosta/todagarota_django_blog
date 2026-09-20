@@ -21,7 +21,7 @@ urlpatterns = [
     path('ckeditor5/image_upload/', ckeditor5_custom_upload, name='ckeditor5_image_upload'),
     path('ckeditor5/', include('django_ckeditor_5.urls')),
     path("", include("blog.urls")),
-
+    
     path("sitemap.xml", sitemap, {"sitemaps": sitemaps}, name="django.contrib.sitemaps.views.sitemap"),
     path("sitemap.xml/", sitemap, {"sitemaps": sitemaps}),
     path("robots.txt", lambda r: HttpResponse("User-agent: *\nDisallow: /admin/\nDisallow: /ckeditor5/\n\nSitemap: https://todagarota.com.br/sitemap.xml", 

@@ -34,6 +34,9 @@ if not DEBUG:
     # Força o redirecionamento permanente (301) de HTTP para HTTPS
     SECURE_SSL_REDIRECT = True  # Defina como True em produção
 
+    # Isenta a rota /health/ do redirecionamento para HTTPS
+    SECURE_REDIRECT_EXEMPT = [r'^health/$']
+
     # Protege o cookie de sessão contra envio em conexões não-seguradas
     SESSION_COOKIE_SECURE = True 
 

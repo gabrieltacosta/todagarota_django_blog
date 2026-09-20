@@ -2,7 +2,7 @@ name: todagarota_django_blog
 
 services:
   app:
-    image: ghcr.io/gabrieltacosta/todagarota-blog-image:latest
+    image: ghcr.io/gabrieltacosta/todagarota-blog-image:0.0.2
     container_name: todagarota_django_blog
     restart: unless-stopped
     volumes:
@@ -16,7 +16,7 @@ services:
              python manage.py collectstatic --noinput &&
              gunicorn core.wsgi:application --bind 0.0.0.0:8000 --workers 3"
     healthcheck:
-      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/')"]
+      test: ["CMD-SHELL", "curl -f http://localhost:8000/health/ || exit 1"]
       interval: 20s
       timeout: 20s
       retries: 5
