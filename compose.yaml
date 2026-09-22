@@ -6,7 +6,7 @@ services:
     container_name: todagarota_django_blog
     restart: unless-stopped
     volumes:
-      - .:/app
+      - media_data:/app/media
     ports:
       - "8000:8000"
     env_file:
@@ -64,4 +64,6 @@ volumes:
   redis_data:
     driver: local
   postgres_data:
+    driver: local
+  media_data:   
     driver: local

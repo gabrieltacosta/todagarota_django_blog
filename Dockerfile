@@ -14,6 +14,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /app
 
+RUN mkdir -p /app/media /app/staticfiles
+
 COPY requirements.txt .
 
 RUN pip install --upgrade pip && \
