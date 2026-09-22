@@ -73,6 +73,8 @@ jobs:
 
       # 8. (Opcional) Dispara o Webhook do Coolify / Portainer para deploy automático
       - name: Trigger Deploy Webhook
-        if: (github.ref == 'refs/heads/prod' || startsWith(github.ref, 'refs/tags/')) && github.event_name != 'pull_request' && secrets.COOLIFY_WEBHOOK_URL != ''
+        if: (github.ref == 'refs/heads/prod' || startsWith(github.ref, 'refs/tags/')) && github.event_name != 'pull_request' && env.COOLIFY_WEBHOOK != ''
+        env:
+          COOLIFY_WEBHOOK: ${{ secrets.COOLIFY_WEBHOOK_URL }}
         run: |
-          curl -X GET "${{ secrets.COOLIFY_WEBHOOK_URL }}"
+          curl -X GET "$COOLIFY_WEBHOOK"
