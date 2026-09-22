@@ -16,19 +16,18 @@ class Author(AbstractUser):
     image = models.ImageField(upload_to=get_image_upload_path, blank=True, null=True, verbose_name="Foto")
 
     def __str__(self):
-        if self.get_full_name():
-            return self.get_full_name()
-        return self.username
+        return self.get_full_name() or self.username
 
     def save(self, *args, **kwargs):
         # Se uma nova imagem foi enviada, comprime antes de salvar
-        if self.image and not self.image.name.endswith('.webp'):
-            compress_and_convert_to_webp(self.image, max_width=400, quality=85, is_avatar=True) # Avatares podem ser menores (400px)
+        if self.image and hasattr(self.image, 'name') and self.image.name:
+            if not self.image.name.endswith('.webp'):
+                compress_and_convert_to_webp(self.image, max_width=400, quality=85, is_avatar=True)
         super().save(*args, **kwargs)
 
     @property
     def avatar_url(self):
-        if self.image:
+        if self.image and hasattr(self.image, 'url'):
             return self.image.url
         return 'Sem imagem'
 
