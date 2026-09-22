@@ -13,7 +13,7 @@ from .utils import get_image_upload_path, get_cover_upload_path, compress_and_co
 
 class Author(AbstractUser):
     id = models.CharField(primary_key=True, default=generate_cuid, editable=False, max_length=50)
-    image = models.ImageField(upload_to=get_image_upload_path, blank=True, null=True, verbose_name="Foto", default="Sem imagem")
+    image = models.ImageField(upload_to=get_image_upload_path, blank=True, null=True, verbose_name="Foto")
 
     def __str__(self):
         if self.get_full_name():
@@ -30,7 +30,7 @@ class Author(AbstractUser):
     def avatar_url(self):
         if self.image:
             return self.image.url
-        return '/static/images/default_avatar.webp'
+        return 'Sem imagem'
 
 class Category(models.Model):
     name = models.CharField(max_length=100, unique=True, verbose_name="Nome")
