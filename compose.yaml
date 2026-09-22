@@ -2,7 +2,7 @@ name: todagarota_django_blog
 
 services:
   app:
-    image: ghcr.io/gabrieltacosta/todagarota-blog-image:0.0.2
+    image: ghcr.io/gabrieltacosta/todagarota-blog-image:latest
     container_name: todagarota_django_blog
     restart: unless-stopped
     volumes:
